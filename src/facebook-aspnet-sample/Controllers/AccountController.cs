@@ -9,10 +9,10 @@ namespace facebook_aspnet_sample.Controllers
 
     public class AccountController : Controller
     {
-        private const string clientId = ""
-        private const string clientSecret = ""
-        private const string scope = "user_about_me,publish_stream,manage_pages";
-        private const string redirectUri = "http://localhost:22466/Account/FacebookCallback";
+        private const string AppId = ""
+        private const string Appsecret = ""
+        private const string Scope = "user_about_me,publish_stream,manage_pages";
+        private const string RedirectUri = "http://localhost:22466/Account/FacebookCallback";
 
         private readonly FacebookClient _fb;
 
@@ -36,11 +36,11 @@ namespace facebook_aspnet_sample.Controllers
             var fbLoginUrl = _fb.GetLoginUrl(
                 new
                     {
-                        client_id = clientId,
-                        client_secret = clientSecret,
-                        redirect_uri = redirectUri,
+                        client_id = AppId,
+                        client_secret = Appsecret,
+                        redirect_uri = RedirectUri,
                         response_type = "code",
-                        scope = scope,
+                        scope = Scope,
                         state = state
                     });
 
@@ -58,6 +58,9 @@ namespace facebook_aspnet_sample.Controllers
             {
                 decodedState = _fb.DeserializeJson(Encoding.UTF8.GetString(Convert.FromBase64String(state)), null);
                 var exepectedCsrfToken = Session["fb_csrf_token"] as string;
+                // make the fb_csrf_token invalid
+                Session["fb_csrf_token"] = null;
+
                 if (!(decodedState is IDictionary<string, object>) || !decodedState.ContainsKey("csrf") || string.IsNullOrWhiteSpace(exepectedCsrfToken) || exepectedCsrfToken != decodedState.csrf)
                 {
                     return RedirectToAction("Index", "Home");
@@ -74,9 +77,9 @@ namespace facebook_aspnet_sample.Controllers
                 dynamic result = _fb.Post("oauth/access_token",
                                           new
                                               {
-                                                  client_id = clientId,
-                                                  client_secret = clientSecret,
-                                                  redirect_uri = redirectUri,
+                                                  client_id = AppId,
+                                                  client_secret = Appsecret,
+                                                  redirect_uri = RedirectUri,
                                                   code = code
                                               });
 
