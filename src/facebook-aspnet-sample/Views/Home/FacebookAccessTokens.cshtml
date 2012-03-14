@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "FacebookAccessTokens";
+}
+
+<h2>My Access Tokens</h2>
+
+<h3>User access token</h3>
+<p><a href="https://developers.facebook.com/tools/debug/access_token?q=@ViewBag.access_token" target="_blank">@ViewBag.access_token</a></p>
+
+<h3>Other access token</h3>
+@foreach (dynamic account in ViewBag.accounts.data)
+{
+    <h4>@account.name</h4>
+    <p><a href="https://developers.facebook.com/tools/debug/access_token?q=@account.access_token" target="_blank">@account.access_token</a></p>
+}

@@ -11,9 +11,8 @@ namespace facebook_aspnet_sample.Controllers
     {
         private const string clientId = ""
         private const string clientSecret = ""
-        private const string redirectUri = "http://localhost:22466/Account/FacebookCallback";
-
         private const string scope = "user_about_me,publish_stream,manage_pages";
+        private const string redirectUri = "http://localhost:22466/Account/FacebookCallback";
 
         private readonly FacebookClient _fb;
 
