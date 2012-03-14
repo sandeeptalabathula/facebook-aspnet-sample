@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace facebook_aspnet_sample.Controllers
 {
@@ -16,5 +12,10 @@ namespace facebook_aspnet_sample.Controllers
             return View();
         }
 
+        [FacebookAuthorize]
+        public ActionResult FacebookAccessTokens()
+        {
+            return View();
+        }
     }
 }
