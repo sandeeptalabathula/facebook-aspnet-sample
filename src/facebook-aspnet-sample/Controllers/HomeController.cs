@@ -46,7 +46,7 @@ namespace facebook_aspnet_sample.Controllers
         {
             base.OnActionExecuting(filterContext);
 
-            // it would be better to set the _fb.AccessToken your favoirte IoC
+            // it would be better to set the _fb.AccessToken using your favoirte IoC
             _fb.AccessToken = Session["fb_access_token"] as string;
         }
     }
